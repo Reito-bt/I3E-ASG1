@@ -8,6 +8,9 @@ TagManager:
   - Laser
   - Enemy
   - Projectile
+  - ScoreCollectible
+  - Key
+  - SecretCollectible
   layers:
   - Default
   - TransparentFX

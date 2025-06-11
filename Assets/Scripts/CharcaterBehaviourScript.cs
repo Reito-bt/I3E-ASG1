@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class CharcaterBehaviourScript : MonoBehaviour
 {
-    int health = 100;
+    public GameObject Projectile;
+
+    public float fireStrength = 10f; // Speed of the projectile
+
+    public int health = 100;
+
+    public Transform SpawnPoint; // Reference to the player's transform if needed
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -27,6 +33,13 @@ public class CharcaterBehaviourScript : MonoBehaviour
         // Initialize character health or other properties if needed
         Debug.Log("Character initialized with health: " + health);
         
+    }
+
+    void OnFire()
+    {
+        GameObject newProjectile = Instantiate(Projectile, SpawnPoint.position, Quaternion.LookRotation(direction));
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        rb.AddForce(direction * fireStrength);
     }
 
     // Update is called once per frame
