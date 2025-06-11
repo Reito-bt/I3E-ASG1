@@ -833,32 +833,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
   m_PrefabInstance: {fileID: 1034364156}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1371321791 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3218071063638999693, guid: 4f70cf7687bfdb946a2b97028d4e2d2d, type: 3}
-  m_PrefabInstance: {fileID: 4702343555133788055}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1371321796
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371321791}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.646098, y: 4.424623, z: 7.0021143}
-  m_Center: {x: -0.090705514, y: 1.2123115, z: -4.171094}
 --- !u!4 &1759197074 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4135013735270702856, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
@@ -985,13 +959,14 @@ PrefabInstance:
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 4702343555133788056}
+    - target: {fileID: 6090809208934077025, guid: 4f70cf7687bfdb946a2b97028d4e2d2d, type: 3}
+      propertyPath: shootingRange
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3218071063638999693, guid: 4f70cf7687bfdb946a2b97028d4e2d2d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1371321796}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f70cf7687bfdb946a2b97028d4e2d2d, type: 3}
 --- !u!4 &4702343555133788056 stripped
 Transform:
