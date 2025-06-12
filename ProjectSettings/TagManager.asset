@@ -11,6 +11,8 @@ TagManager:
   - ScoreCollectible
   - Key
   - SecretCollectible
+  - GreenDoor
+  - PurpleDoor
   layers:
   - Default
   - TransparentFX

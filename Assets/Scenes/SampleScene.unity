@@ -562,6 +562,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &871618266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3218071063638999693, guid: 4f70cf7687bfdb946a2b97028d4e2d2d, type: 3}
+  m_PrefabInstance: {fileID: 4702343555133788055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &871618271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871618266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0724f618e00a00641ab5366437a50391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  damageTakenFromPlayer: 10
 --- !u!1 &1017060130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
@@ -579,8 +598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0ff295dff9de0469108f06218e2e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
+  damagetakenfromEnemy: 10
   Projectile: {fileID: 1925385378}
-  fireStrength: 100
+  fireStrength: 1000
   health: 100
   SpawnPoint: {fileID: 1047414118}
 --- !u!54 &1017060138
@@ -890,7 +911,7 @@ GameObject:
   - component: {fileID: 1752487837}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: ScoreCollectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1117,12 +1138,15 @@ PrefabInstance:
       objectReference: {fileID: 4702343555133788056}
     - target: {fileID: 6090809208934077025, guid: 4f70cf7687bfdb946a2b97028d4e2d2d, type: 3}
       propertyPath: shootingRange
-      value: 8
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3218071063638999693, guid: 4f70cf7687bfdb946a2b97028d4e2d2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 871618271}
   m_SourcePrefab: {fileID: 100100000, guid: 4f70cf7687bfdb946a2b97028d4e2d2d, type: 3}
 --- !u!4 &4702343555133788056 stripped
 Transform:

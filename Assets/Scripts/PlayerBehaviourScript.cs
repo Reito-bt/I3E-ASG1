@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CharcaterBehaviourScript : MonoBehaviour
 {
+    public bool canInteract = false; // Flag to check if the character can interact with objects
+    public float InteractionDistance = 5f; // Distance within which the character can interact with objects
     public int score = 0; // Score of the character
 
     public int damagetakenfromEnemy = 10; // Damage taken from enemy
@@ -48,6 +50,20 @@ public class CharcaterBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RaycastHit hitInfo;
+        Debug.DrawRay(SpawnPoint.position, transform.forward * InteractionDistance, Color.red);
+        if (Physics.Raycast(SpawnPoint.position, transform.forward, out hitInfo, InteractionDistance))
+        {
+            if (hitInfo.collider.CompareTag("GreenDoor"))
+            {
+        
+                canInteract = true; // Set canInteract to true if the raycast hits a door
+                Debug.Log("Character can interact with the door: " + hitInfo.collider.name);
+
+                
+
+            }
+        }
         
     }
 }

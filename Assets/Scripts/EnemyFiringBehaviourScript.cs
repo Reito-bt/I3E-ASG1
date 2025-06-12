@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class EnemyBehaviourScript : MonoBehaviour
 {
-    public int damageTakenFromPlayer = 10; // Damage taken from player
-    public int health = 100; // Health of the enemy
     public float shootingRange = 10f; // Range within which the enemy can shoot
     public GameObject Bullet; // Bullet prefab to be fired
     public Transform firePoint;
@@ -13,26 +11,9 @@ public class EnemyBehaviourScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
         InvokeRepeating(nameof(ShootAtPlayer), 1f, fireRate);
-        
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Projectile"))
-        {
-            Debug.Log("Enemy is getting hit by the bullet!");
-            health -= damageTakenFromPlayer; // Reduce health when hit by a projectile
-            Debug.Log("Enemy hit by projectile! Health: " + health);
-            Destroy(collision.gameObject); // Destroy the projectile after collision
-            if (health <= 0)
-            {
-                Debug.Log("Enemy defeated!");
-                Destroy(gameObject); // Destroy the enemy if health is zero or below
-            }
-        }
-    }
     void ShootAtPlayer()
     {
 
