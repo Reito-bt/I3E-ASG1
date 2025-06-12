@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class CharcaterBehaviourScript : MonoBehaviour
 {
+    public int score = 0; // Score of the character
+
+    public int damagetakenfromEnemy = 10; // Damage taken from enemy
     public GameObject Projectile;
 
-    public float fireStrength = 10f; // Speed of the projectile
+    public float fireStrength = 1000f; // Speed of the projectile
 
     public int health = 100;
 
@@ -17,7 +20,7 @@ public class CharcaterBehaviourScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Laser"))
         {
             Debug.Log("Character collided with laser!");
-            health -= 10;
+            health -= damagetakenfromEnemy;
             Debug.Log("Character hit by laser! Health: " + health);
         }
         if (collision.gameObject.CompareTag("Projectile"))
@@ -37,9 +40,9 @@ public class CharcaterBehaviourScript : MonoBehaviour
 
     void OnFire()
     {
-        GameObject newProjectile = Instantiate(Projectile, SpawnPoint.position, Quaternion.LookRotation(direction));
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.AddForce(direction * fireStrength);
+        GameObject newProjectile = Instantiate(Projectile, SpawnPoint.position, Projectile.transform.rotation);
+        Vector3 fireForce = SpawnPoint.forward * fireStrength;
+        newProjectile.GetComponent<Rigidbody>().AddForce(fireForce);
     }
 
     // Update is called once per frame
