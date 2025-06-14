@@ -11,6 +11,7 @@ public class EnemyPlayerBehaviour : MonoBehaviour
             Debug.Log("Enemy is getting hit by the bullet!");
             health -= damageTakenFromPlayer; // Reduce health when hit by a projectile
             Debug.Log("Enemy hit by projectile! Health: " + health);
+            UI_Manager.AddScore(10); // Update the score in the UI
             Destroy(collision.gameObject); // Destroy the projectile after collision
             if (health <= 0)
             {
