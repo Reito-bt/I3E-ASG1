@@ -9,10 +9,11 @@ TagManager:
   - Enemy
   - Projectile
   - ScoreCollectible
-  - Key
   - SecretCollectible
   - GreenDoor
   - PurpleDoor
+  - GreenKey
+  - PurpleKey
   layers:
   - Default
   - TransparentFX
