@@ -6,7 +6,6 @@ public class CharcaterBehaviourScript : MonoBehaviour
     private bool canInteract = false; // Flag to check if the character can interact with objects
     public float InteractionDistance = 5f; // Distance within which the character can interact with objects
     public int score = 0; // Score of the character
-
     public int damagetakenfromEnemy = 10; // Damage taken from enemy
     public GameObject Projectile;
 
@@ -48,15 +47,27 @@ public class CharcaterBehaviourScript : MonoBehaviour
         newProjectile.GetComponent<Rigidbody>().AddForce(fireForce);
     }
 
-   void OnInteract()
+    void OnInteract()
     {
         if (canInteract && door != null)
         {
             door.Interact();
             canInteract = false;
         }
+
+        if (canInteract && key != null)
+        {
+            Debug.Log("Character collected the key: " + key.name);
+            // Here you can add logic to collect the key, e.g., increase score or inventory
+            Destroy(key.gameObject); // Destroy the key after collection
+            canInteract = false;
+        }
+        else
+        {
+            Debug.Log("No object to interact with");
+        }
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -64,6 +75,7 @@ public class CharcaterBehaviourScript : MonoBehaviour
         Debug.DrawRay(SpawnPoint.position, transform.forward * InteractionDistance, Color.red);
         canInteract = false;
         door = null;
+        key = null;
 
         if (Physics.Raycast(SpawnPoint.position, transform.forward, out hitInfo, InteractionDistance))
         {
@@ -72,6 +84,13 @@ public class CharcaterBehaviourScript : MonoBehaviour
                 canInteract = true;
                 door = hitInfo.collider.GetComponent<DoorBehaviour>();
                 Debug.Log("Character can interact with the door: " + hitInfo.collider.name);
+            }
+
+            if (hitInfo.collider.CompareTag("GreenKey"))
+            {
+                canInteract = true;
+                Debug.Log("Character can collect the key: " + hitInfo.collider.name);
+                // Here you can add logic to collect the key, e.g., increase score or inventory
             }
         }
     }
