@@ -10,7 +10,6 @@ public class EndingUIManager : MonoBehaviour
     void Start()
     {
         endingPanel.SetActive(false); // Ensure the ending panel is hidden at the start
-        
     }
 
 

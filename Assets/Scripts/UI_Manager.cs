@@ -21,8 +21,8 @@ public class UI_Manager : MonoBehaviour
     public static void UpdateHealth(float currentHealth)
     // Update the health display in the UI without needing to reference the player directly
     {
-        if (Instance != null && Instance.healthText != null)
-            Instance.healthText.text = "Health: " + Mathf.RoundToInt(currentHealth);
+        if (Instance != null && Instance.healthText != null) // Check if Instance and healthText are not null
+            Instance.healthText.text = "Health: " + Mathf.RoundToInt(currentHealth); // Update the health text
     }
 
     public static void AddScore(int points)

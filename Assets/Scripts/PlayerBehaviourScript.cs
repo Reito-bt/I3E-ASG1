@@ -117,8 +117,9 @@ public class CharcaterBehaviourScript : MonoBehaviour
         {
             coin = coinObject.GetComponent<CoinBehaviourScript>();
             coin.Interact(); // Call the Interact method on the coin script
+            score += 10; // Increase score by 10
             coinsUncollected--;
-            UI_Manager.UpdateCoins(coinsUncollected); // Optional: show on UI
+            UI_Manager.UpdateCoins(coinsUncollected); // Update the UI with the remaining coins
             audioSource.PlayOneShot(coinClip); // Play the coin collection sound
             canInteract = false;
             return;
