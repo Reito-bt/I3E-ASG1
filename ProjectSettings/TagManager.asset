@@ -15,6 +15,7 @@ TagManager:
   - PurpleKey
   - Environment
   - Coin
+  - car
   layers:
   - Default
   - TransparentFX

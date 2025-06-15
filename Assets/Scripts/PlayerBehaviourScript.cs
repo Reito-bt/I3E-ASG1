@@ -124,10 +124,10 @@ public class CharcaterBehaviourScript : MonoBehaviour
             return;
         }
 
-        if (canInteract && ending != null && ending.gameObject.CompareTag("car"))
+        if (canInteract && ending.gameObject.CompareTag("car"))
         {
             Debug.Log("Character interacted with the car: " + ending.name);
-            ending.ShowEndingUI(); // Call the method to show the ending UI
+            ending.ShowEndingUI(score, health); // Call the method to show the ending UI
             canInteract = false;
             return;
         }
@@ -169,6 +169,7 @@ public class CharcaterBehaviourScript : MonoBehaviour
             else if (hitInfo.collider.CompareTag("car"))
             {
                 canInteract = true;
+                Debug.Log("Character looking at the car: " + hitInfo.collider.name);
                 // Here you can add logic to interact with the car, e.g., enter or exit
                 ending = hitInfo.collider.GetComponent<EndingUIManager>();
 

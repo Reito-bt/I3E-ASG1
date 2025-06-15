@@ -6,6 +6,13 @@ public class EndingUIManager : MonoBehaviour
     public GameObject endingPanel; // Assign the Panel in Inspector
     public TMP_Text scoreText;
     public TMP_Text healthText;
+    public static EndingUIManager Instance; // Singleton instance
+    void Start()
+    {
+        endingPanel.SetActive(false); // Ensure the ending panel is hidden at the start
+        
+    }
+
 
     public void ShowEndingUI(int score, int health)
     {
@@ -13,19 +20,8 @@ public class EndingUIManager : MonoBehaviour
         scoreText.text = "Total Score: " + score;
         healthText.text = "Health Remaining: " + health;
     }
-
-    public void HideEndingUI()
+    void Awake()
     {
-        endingPanel.SetActive(false);
-    }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Instance = this; // Ensure that there is only one instance of UI_Manager
     }
 }
