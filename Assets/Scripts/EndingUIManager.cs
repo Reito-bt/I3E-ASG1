@@ -1,5 +1,11 @@
 using UnityEngine;
 using TMPro;
+/*
+*Author: Muhammad Rasuli Bin Rosli
+*Date: 16/6/2025
+*Description: This script manages the ending UI of the game, displaying the final score and health remaining when the game ends.
+* It uses a singleton pattern to ensure that only one instance of the UI manager exists, allowing easy access to the UI elements from other scripts.
+*/
 
 public class EndingUIManager : MonoBehaviour
 {

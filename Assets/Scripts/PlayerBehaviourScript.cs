@@ -1,6 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+*Author: Muhammad Rasuli Bin Rosli
+*Date: 16/6/2025
+*Description: This script handles the character's behavior in the game, including interactions with doors, keys, coins, and projectiles. It manages health, score, and interactions with the environment.
+* It also handles respawning when the character's health reaches zero.
+*/
+
 public class CharcaterBehaviourScript : MonoBehaviour
 {
     private DoorBehaviour door;
@@ -43,7 +50,7 @@ public class CharcaterBehaviourScript : MonoBehaviour
         }
     }
 
-    
+
     void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Laser"))
@@ -66,7 +73,7 @@ public class CharcaterBehaviourScript : MonoBehaviour
 
         coinsUncollected = GameObject.FindGameObjectsWithTag("Coin").Length;
         UI_Manager.UpdateCoins(coinsUncollected); // Optional: show on UI
-        
+
     }
 
     void OnFire()

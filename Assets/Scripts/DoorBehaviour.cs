@@ -1,4 +1,11 @@
 using UnityEngine;
+/*
+*Author: Muhammad Rasuli Bin Rosli
+*Date: 16/6/2025
+*Description: This script handles the behavior of doors in the game. It allows the player to open and close doors by toggling their rotation on the Y-axis.
+* The door's state is tracked using a boolean variable, and the door's rotation is adjusted accordingly when the player interacts with it.
+*/
+
 
 public class DoorBehaviour : MonoBehaviour
 {

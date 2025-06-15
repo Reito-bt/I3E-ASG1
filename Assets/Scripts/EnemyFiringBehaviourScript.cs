@@ -1,4 +1,9 @@
 using UnityEngine;
+/*
+*Author: Muhammad Rasuli Bin Rosli
+*Date: 16/6/2025
+*Description: This script handles the enemy's shooting behavior in the game. The enemy will shoot at the player if they are within a specified range.
+*/
 
 public class EnemyBehaviourScript : MonoBehaviour
 {

@@ -1,4 +1,10 @@
 using UnityEngine;
+/*
+*Author: Muhammad Rasuli Bin Rosli
+*Date: 16/6/2025
+*Description: This script handles the behavior of enemy players in the game. It detects collisions with projectiles and reduces the enemy's health accordingly.
+* When the enemy's health reaches zero, it is destroyed. The script also updates the score in the UI when the enemy is hit.
+*/
 
 public class EnemyPlayerBehaviour : MonoBehaviour
 {

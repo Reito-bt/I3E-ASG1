@@ -1,4 +1,9 @@
 using UnityEngine;
+/*
+*Author: Muhammad Rasuli Bin Rosli
+*Date: 16/6/2025
+*Description: This script handles the interaction with coins in the game. When a player interacts with a coin, it adds to the score and destroys the coin object.
+*/
 
 public class CoinBehaviourScript : MonoBehaviour
 {

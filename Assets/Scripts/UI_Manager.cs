@@ -1,5 +1,10 @@
 using UnityEngine;
 using TMPro;
+/*
+*Author: Muhammad Rasuli Bin Rosli
+*Date: 16/6/2025
+*Description: This script manages the UI elements in the game, including health, score, and coins. It provides static methods to update these values without needing to reference the player directly.
+*/
 
 public class UI_Manager : MonoBehaviour
 {
