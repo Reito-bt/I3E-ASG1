@@ -8,10 +8,14 @@ public class EnemyBehaviourScript : MonoBehaviour
     public float bulletForce = 500f;
     public float fireRate = 2f; // seconds between shots
     public Transform target; // player transform
+
+    public AudioClip shootClip; // Assign in Inspector
+    private AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         InvokeRepeating(nameof(ShootAtPlayer), 1f, fireRate);
+        audioSource = GetComponent<AudioSource>();
     }
 
     void ShootAtPlayer()

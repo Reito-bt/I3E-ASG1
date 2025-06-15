@@ -14,6 +14,7 @@ TagManager:
   - PurpleDoor
   - GreenKey
   - PurpleKey
+  - Environment
   layers:
   - Default
   - TransparentFX

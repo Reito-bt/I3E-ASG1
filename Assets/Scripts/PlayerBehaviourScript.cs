@@ -4,6 +4,8 @@ public class CharcaterBehaviourScript : MonoBehaviour
 {
     private DoorBehaviour door; // Reference to the door that the character can interact with
     private KeyBehaviour key; // Reference to the key that the character can collect
+
+    private CoinBehaviourScript coin; // Reference to the coin that the character can collect
     private bool canInteract = false; // Flag to check if the character can interact with objects
     public float InteractionDistance = 5f; // Distance within which the character can interact with objects
     public int score = 0; // Score of the character
@@ -31,7 +33,7 @@ public class CharcaterBehaviourScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile"))
         {
             Debug.Log("Character collided with projectile!");
-            health -= damagetakenfromEnemy;
+            health -= damagetakenfromEnemy; // Reduce health when hit by a projectile
             UI_Manager.UpdateHealth(health); // Update UI when hit by laser
             Debug.Log("Character hit by projectile! Health: " + health);
             Destroy(collision.gameObject); // Destroy the projectile after collision
@@ -61,7 +63,7 @@ public class CharcaterBehaviourScript : MonoBehaviour
 
     void OnInteract()
     {
-    // Collect the key if looking at it
+        // Collect the key if looking at it
         if (canInteract && key != null && key.gameObject.CompareTag("GreenKey") && !greenKeyCollected)
         {
             CollectGreenKey(key.gameObject);
@@ -76,6 +78,13 @@ public class CharcaterBehaviourScript : MonoBehaviour
             door.Interact();
             canInteract = false;
         }
+        if (canInteract && coin != null)
+        {
+            Debug.Log("Character collected the coin: " + coin.name);
+            coin.Collect();
+            canInteract = false;
+        }
+        
     }
 
     // Update is called once per frame
@@ -96,12 +105,19 @@ public class CharcaterBehaviourScript : MonoBehaviour
                 Debug.Log("Character can interact with the door: " + hitInfo.collider.name);
             }
 
-            if (hitInfo.collider.CompareTag("GreenKey"))
+            else if (hitInfo.collider.CompareTag("GreenKey"))
             {
                 canInteract = true;
                 key = hitInfo.collider.GetComponent<KeyBehaviour>();
                 Debug.Log("Character can collect the key: " + hitInfo.collider.name);
                 // Here you can add logic to collect the key, e.g., increase score or inventory
+            }
+
+            else if (hitInfo.collider.CompareTag("Coin"))
+            {
+                canInteract = true;
+                Debug.Log("Character can coin: " + hitInfo.collider.name);
+                CoinBehaviourScript coin = hitInfo.collider.GetComponent<CoinBehaviourScript>(); 
             }
         }
     }
