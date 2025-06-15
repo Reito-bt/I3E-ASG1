@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class CharcaterBehaviourScript : MonoBehaviour
 {
     private DoorBehaviour door;
+    private EndingUIManager ending; // Reference to the ending script for interaction
     public AudioClip shootClip; // Assign this in the Inspector
     public AudioClip coinClip; // Assign this in the Inspector for key collection sound
     public AudioClip oofClip; // Assign this in the Inspector for damage sound
@@ -123,6 +124,14 @@ public class CharcaterBehaviourScript : MonoBehaviour
             return;
         }
 
+        if (canInteract && ending != null && ending.gameObject.CompareTag("car"))
+        {
+            Debug.Log("Character interacted with the car: " + ending.name);
+            ending.ShowEndingUI(); // Call the method to show the ending UI
+            canInteract = false;
+            return;
+        }
+
 
     }
 
@@ -142,22 +151,27 @@ public class CharcaterBehaviourScript : MonoBehaviour
             {
                 canInteract = true;
                 door = hitInfo.collider.GetComponent<DoorBehaviour>();
-                Debug.Log("Character can interact with the door: " + hitInfo.collider.name);
             }
 
             else if (hitInfo.collider.CompareTag("GreenKey"))
             {
                 canInteract = true;
                 key = hitInfo.collider.GetComponent<KeyBehaviour>();
-                Debug.Log("Character can collect the key: " + hitInfo.collider.name);
                 // Here you can add logic to collect the key, e.g., increase score or inventory
             }
 
             else if (hitInfo.collider.CompareTag("Coin"))
             {
                 canInteract = true;
-                Debug.Log("Character detects coin: " + hitInfo.collider.name);
                 coinObject = hitInfo.collider.gameObject;
+            }
+
+            else if (hitInfo.collider.CompareTag("car"))
+            {
+                canInteract = true;
+                // Here you can add logic to interact with the car, e.g., enter or exit
+                ending = hitInfo.collider.GetComponent<EndingUIManager>();
+
             }
         }
         if (health <= 0)
