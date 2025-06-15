@@ -1,10 +1,18 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharcaterBehaviourScript : MonoBehaviour
 {
-    private DoorBehaviour door; // Reference to the door that the character can interact with
+    private DoorBehaviour door;
+    public AudioClip shootClip; // Assign this in the Inspector
+    public AudioClip coinClip; // Assign this in the Inspector for key collection sound
+    public AudioClip oofClip; // Assign this in the Inspector for damage sound
+    public float laserDamageCooldown = 1f; // Time between damage ticks
+    public float lastLaserDamageTime = 0f;
+    public AudioClip doorClip; // Assign this in the Inspector for door interaction sound
+    private AudioSource audioSource;
+    private GameObject coinObject;
     private KeyBehaviour key; // Reference to the key that the character can collect
-
     private CoinBehaviourScript coin; // Reference to the coin that the character can collect
     private bool canInteract = false; // Flag to check if the character can interact with objects
     public float InteractionDistance = 5f; // Distance within which the character can interact with objects
@@ -12,8 +20,8 @@ public class CharcaterBehaviourScript : MonoBehaviour
     public int damagetakenfromEnemy = 10; // Damage taken from enemy
     public GameObject Projectile; // Reference to the projectile prefab
     public float fireStrength = 1000f; // Speed of the projectile
-
     public int health = 100; // Health of the character
+    public int coinsUncollected = 0; // Number of coins collected by the character
 
     public Transform SpawnPoint; // Reference to the player's transform if needed
 
@@ -23,27 +31,40 @@ public class CharcaterBehaviourScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) // Handle collisions with other objects
     {
-        if (collision.gameObject.CompareTag("Laser"))
-        {
-            Debug.Log("Character collided with laser!");
-            health -= 10; // Reduce health when hit by a laser
-            UI_Manager.UpdateHealth(health); // Update UI when hit by laser
-            Debug.Log("Character hit by laser! Health: " + health);
-        }
         if (collision.gameObject.CompareTag("Projectile"))
         {
             Debug.Log("Character collided with projectile!");
             health -= damagetakenfromEnemy; // Reduce health when hit by a projectile
+            audioSource.PlayOneShot(oofClip); // Play damage sound
             UI_Manager.UpdateHealth(health); // Update UI when hit by laser
             Debug.Log("Character hit by projectile! Health: " + health);
             Destroy(collision.gameObject); // Destroy the projectile after collision
         }
     }
+
+    
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Laser"))
+        {
+            if (Time.time - lastLaserDamageTime >= laserDamageCooldown) // Check if enough time has passed since the last damage tick
+            {
+                health -= damagetakenfromEnemy;
+                audioSource.PlayOneShot(oofClip); // Play damage sound
+                UI_Manager.UpdateHealth(health);
+                lastLaserDamageTime = Time.time; // Update the last damage time
+            }
+        }
+    }
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         // Initialize character health or other properties if needed
         Debug.Log("Character initialized with health: " + health);
         UI_Manager.UpdateHealth(health); // Update UI with initial health
+
+        coinsUncollected = GameObject.FindGameObjectsWithTag("Coin").Length;
+        UI_Manager.UpdateCoins(coinsUncollected); // Optional: show on UI
         
     }
 
@@ -52,6 +73,11 @@ public class CharcaterBehaviourScript : MonoBehaviour
         GameObject newProjectile = Instantiate(Projectile, SpawnPoint.position, Projectile.transform.rotation);
         Vector3 fireForce = SpawnPoint.forward * fireStrength;
         newProjectile.GetComponent<Rigidbody>().AddForce(fireForce);
+
+        if (shootClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(shootClip);
+        }
     }
 
     public void CollectGreenKey(GameObject keyObject)
@@ -61,8 +87,15 @@ public class CharcaterBehaviourScript : MonoBehaviour
         Destroy(keyObject);
     }
 
+    void Respawn()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
+
     void OnInteract()
     {
+
         // Collect the key if looking at it
         if (canInteract && key != null && key.gameObject.CompareTag("GreenKey") && !greenKeyCollected)
         {
@@ -76,15 +109,21 @@ public class CharcaterBehaviourScript : MonoBehaviour
         {
             Debug.Log("Character interacted with the door: " + door.name);
             door.Interact();
+            audioSource.PlayOneShot(doorClip); // Play the door interaction sound
             canInteract = false;
         }
-        if (canInteract && coin != null)
+        if (canInteract && coinObject != null)
         {
-            Debug.Log("Character collected the coin: " + coin.name);
-            coin.Collect();
+            coin = coinObject.GetComponent<CoinBehaviourScript>();
+            coin.Interact(); // Call the Interact method on the coin script
+            coinsUncollected--;
+            UI_Manager.UpdateCoins(coinsUncollected); // Optional: show on UI
+            audioSource.PlayOneShot(coinClip); // Play the coin collection sound
             canInteract = false;
+            return;
         }
-        
+
+
     }
 
     // Update is called once per frame
@@ -95,6 +134,7 @@ public class CharcaterBehaviourScript : MonoBehaviour
         canInteract = false;
         door = null;
         key = null;
+        coinObject = null;
 
         if (Physics.Raycast(SpawnPoint.position, transform.forward, out hitInfo, InteractionDistance))
         {
@@ -116,9 +156,13 @@ public class CharcaterBehaviourScript : MonoBehaviour
             else if (hitInfo.collider.CompareTag("Coin"))
             {
                 canInteract = true;
-                Debug.Log("Character can coin: " + hitInfo.collider.name);
-                CoinBehaviourScript coin = hitInfo.collider.GetComponent<CoinBehaviourScript>(); 
+                Debug.Log("Character detects coin: " + hitInfo.collider.name);
+                coinObject = hitInfo.collider.gameObject;
             }
+        }
+        if (health <= 0)
+        {
+            Respawn();
         }
     }
 }

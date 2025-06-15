@@ -9,12 +9,12 @@ TagManager:
   - Enemy
   - Projectile
   - ScoreCollectible
-  - SecretCollectible
   - GreenDoor
   - PurpleDoor
   - GreenKey
   - PurpleKey
   - Environment
+  - Coin
   layers:
   - Default
   - TransparentFX

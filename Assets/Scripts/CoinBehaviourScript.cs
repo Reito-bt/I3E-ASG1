@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CoinBehaviourScript : MonoBehaviour
 {
-    public void Collect()
+    public void Interact()
     {
         UI_Manager.AddScore(10);
         Destroy(gameObject);

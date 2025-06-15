@@ -24,6 +24,7 @@ public class DoorBehaviour : MonoBehaviour
             doorOpen = true; // Update the state of the door to open
         }
     }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
     {
